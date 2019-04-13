@@ -20,6 +20,6 @@ app.use(require('morgan')('dev'))
 //   console.error.bind(console, 'db connected successfully'),
 // )
 
-// app.use(require('./routes'))
+app.use(require('./routes'))
 
 app.listen(port, () => console.log(`App listening on port ${port}!`))

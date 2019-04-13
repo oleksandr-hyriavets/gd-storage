@@ -4,6 +4,7 @@
   "description": "API server to create, read, edit and delete information resourses stored on Goolge Drive, using Google Drive API",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Alex Hyriavets",
@@ -15,6 +16,7 @@
     "googleapis": "^27.0.0",
     "mongoose": "^5.5.0",
     "morgan": "^1.9.1",
+    "nodemon": "^1.18.11",
     "util": "^0.11.1"
   }
 }
