@@ -1,10 +1,14 @@
 const fs = require('fs')
+path = require('path')
 const util = require('util')
 const { google } = require('googleapis')
 const readFile = fileName => util.promisify(fs.readFile)(fileName, 'utf8')
 
-const credentialsPath = './../../config/googleApi/credentials.json'
-const tokenPath = './../../config/googleApi/token.json'
+const credentialsPath = path.join(
+  __dirname,
+  './../../config/googleApi/credentials.json',
+)
+const tokenPath = path.join(__dirname, './../../config/googleApi/token.json')
 
 async function getCredentials() {
   try {
@@ -27,8 +31,8 @@ async function getToken() {
 }
 
 async function getAuth() {
-  const credentials = getCredentials()
-  const token = getToken()
+  const credentials = await getCredentials()
+  const token = await getToken()
 
   const { client_secret, client_id, redirect_uris } = credentials.installed
   const oAuth2Client = new google.auth.OAuth2(
