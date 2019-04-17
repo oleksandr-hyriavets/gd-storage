@@ -5,17 +5,10 @@ const jwt = require('jsonwebtoken')
 const userSchema = Schema({
   fullname: { type: String, required: true },
   email: { type: String, required: true },
-  hash: { type: String, required: true },
-  salt: { type: String, required: true },
+  hash: { type: String },
+  salt: { type: String },
   scopes: { type: [String], required: true },
 })
-
-userSchema.methods.setPassword = password => {
-  this.salt = crypto.randomBytes(16).toString('hex')
-  this.hash = crypto
-    .pbkdf2Sync(password, this.salt, 10000, 512, 'sha512')
-    .toString('hex')
-}
 
 userSchema.methods.validatePassword = password => {
   const hash = crypto

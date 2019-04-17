@@ -22,6 +22,8 @@ connection.once(
   console.error.bind(console, 'db connected successfully'),
 )
 
+require('./config/passport')
+
 app.use(require('./routes'))
 
 app.listen(port, () => console.log(`App listening on port ${port}!`))

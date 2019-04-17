@@ -5,6 +5,6 @@ const fileSchema = Schema({
   extension: { type: String, required: true },
 })
 
-const File = module('File', fileSchema)
+const File = model('File', fileSchema)
 
 module.exports = File

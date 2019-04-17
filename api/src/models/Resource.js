@@ -11,7 +11,7 @@ const resourceSchema = Schema({
   parent: { type: Schema.Types.ObjectId, ref: 'Resource' },
 })
 
-pageSchema.set('timestamps', true)
+resourceSchema.set('timestamps', true)
 
 const Resource = model('Resource', resourceSchema)
 
