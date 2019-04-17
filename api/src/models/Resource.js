@@ -1,14 +1,14 @@
 const { Schema, model } = require('mongoose')
 
 const resourceSchema = Schema({
-  name: String,
-  owner: { type: Schema.Types.ObjectId, ref: 'User' },
+  name: { type: String, required: true },
+  owner: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   description: String,
-  readPermissions: [String],
-  editPermissions: [String],
-  deletePermissions: [String],
-  file: { type: Schema.Types.ObjectId, ref: 'File' },
-  parend: { type: Schema.Types.ObjectId, ref: 'Resource' },
+  readPermissions: { type: [String], required: true },
+  editPermissions: { type: [String], required: true },
+  deletePermissions: { type: [String], required: true },
+  file: { type: Schema.Types.ObjectId, ref: 'File', required: true },
+  parent: { type: Schema.Types.ObjectId, ref: 'Resource' },
 })
 
 pageSchema.set('timestamps', true)

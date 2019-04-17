@@ -3,11 +3,11 @@ const crypto = require('crypto')
 const jwt = require('jsonwebtoken')
 
 const userSchema = Schema({
-  fullname: String,
-  email: String,
-  hash: String,
-  salt: String,
-  scopes: [String],
+  fullname: { type: String, required: true },
+  email: { type: String, required: true },
+  hash: { type: String, required: true },
+  salt: { type: String, required: true },
+  scopes: { type: [String], required: true },
 })
 
 userSchema.methods.setPassword = password => {
