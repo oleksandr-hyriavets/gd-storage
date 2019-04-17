@@ -12,9 +12,11 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "express": "^4.16.4",
     "googleapis": "^27.0.0",
-    "mongoose": "^5.5.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.5.2",
     "morgan": "^1.9.1",
     "nodemon": "^1.18.11",
     "util": "^0.11.1"
