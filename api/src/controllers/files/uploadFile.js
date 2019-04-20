@@ -49,6 +49,7 @@ async function uploadFile(req, res) {
     res.status(400).send('Error during uploading a file')
   }
 
+  // Clear temporary directory
   const directory = './../uploads'
 
   fs.readdir(directory, (err, files) => {
