@@ -1,27 +1,32 @@
 const { getGdApi } = require('./../../utils/googleApi')
 
+const { Resource } = require('./../../models')
+
 const getResources = async (req, res) => {
-  const gdApi = await getGdApi()
+  try {
+    const resources = await Resource.find().populate('file owner')
 
-  gdApi.files.list(
-    {
-      fields: 'files(id, name)',
-    },
-    (err, gdRes) => {
-      if (err) {
-        res.send(400, 'Error during getting resources: ', err)
-
-        return
-      }
-
-      const files = gdRes.data.files
-      if (files.length) {
-        res.send(files)
-
-        return
-      }
-    },
-  )
+    res.send(resources)
+  } catch (err) {
+    res.status(400).send('Error during getting resources')
+  }
+  // const gdApi = await getGdApi()
+  // gdApi.files.list(
+  //   {
+  //     fields: 'files(id, name)',
+  //   },
+  //   (err, gdRes) => {
+  //     if (err) {
+  //       res.send(400, 'Error during getting resources: ', err)
+  //       return
+  //     }
+  //     const files = gdRes.data.files
+  //     if (files.length) {
+  //       res.send(files)
+  //       return
+  //     }
+  //   },
+  // )
   // const ress = await gdApi.files.create({
   //   requestBody: {
   //     name: 'Test',

@@ -2,7 +2,17 @@ const path = require('path')
 const mime = require('mime-types')
 const fs = require('fs')
 
+const { File } = require('./../../models')
+
 const { getGdApi } = require('./../../utils/googleApi')
+
+function getFileExtension(filename) {
+  if (!filename) return ''
+
+  const splittedFilename = filename.split('.')
+
+  return splittedFilename[splittedFilename.length - 1]
+}
 
 async function uploadFile(req, res) {
   const { file } = req
@@ -33,7 +43,7 @@ async function uploadFile(req, res) {
         media,
         fields: 'id',
       },
-      (err, { data }) => {
+      async (err, { data }) => {
         if (err) {
           res
             .status(200)
@@ -42,7 +52,15 @@ async function uploadFile(req, res) {
           return
         }
 
-        res.send(data.id)
+        const newDbFile = new File({
+          gdFileId: data.id,
+          filename: file.originalname,
+          extension: getFileExtension(file.originalname),
+        })
+
+        await newDbFile.save()
+
+        res.send(newDbFile)
       },
     )
   } catch (err) {
