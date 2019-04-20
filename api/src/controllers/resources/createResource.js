@@ -29,9 +29,9 @@ const createResource = async (req, res) => {
 
   //   return
   // }
-  console.log(newResource)
+  console.log(req)
 
-  res.send(newResource.file)
+  res.send(req.File)
 
   // const gdApi = await getGdApi()
   // const fileId = '1sLqCAlutnHoVCKZKM9wTWcQAitXR8V9v'

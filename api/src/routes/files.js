@@ -12,11 +12,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
-router.get('/', require('./../controllers/resources/getResources'))
-router.get(
-  '/create',
+router.post(
+  '/upload',
   upload.single('file'),
-  require('./../controllers/resources/createResource'),
+  require('./../controllers/files/uploadFile'),
 )
 
 module.exports = router
