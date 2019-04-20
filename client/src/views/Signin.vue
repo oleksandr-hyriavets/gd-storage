@@ -1,10 +1,7 @@
 <template>
   <el-container>
     <el-card style="width: 400px;  margin: 0 auto; margin-top: 100px;">
-      <el-form ref="signupForm" :model="form" :rules="rules">
-        <el-form-item prop="fullname" label="Full Name">
-          <el-input v-model="form.fullname"></el-input>
-        </el-form-item>
+      <el-form ref="signinForm" :model="form" :rules="rules">
         <el-form-item prop="email" label="Email">
           <el-input v-model="form.email"></el-input>
         </el-form-item>
@@ -12,7 +9,7 @@
           <el-input v-model="form.password"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSubmit">Sign up</el-button>
+          <el-button type="primary" @click="onSubmit">Sign in</el-button>
           <el-button @click="clearFields">Clear</el-button>
         </el-form-item>
       </el-form>
@@ -27,7 +24,6 @@ import { clone } from 'ramda'
 const DEFAULT_FORM = {
   email: '',
   password: '',
-  fullname: '',
 }
 
 @Component
@@ -35,9 +31,6 @@ export default class Home extends Vue {
   form = clone(DEFAULT_FORM)
 
   rules = {
-    fullname: [
-      { required: true, message: 'Please enter Fullname', trigger: 'blur' },
-    ],
     email: [
       { required: true, message: 'Please enter valid Email', trigger: 'blur' },
     ],
@@ -52,8 +45,8 @@ export default class Home extends Vue {
   }
 
   onSubmit() {
-    const signupForm: any = this.$refs.signupForm
-    signupForm.validate((valid: boolean) => {
+    const signinForm: any = this.$refs.signinForm
+    signinForm.validate((valid: boolean) => {
       if (!valid) return
 
       console.log(this.form)
@@ -61,10 +54,10 @@ export default class Home extends Vue {
   }
 
   clearFields() {
-    const signupForm: any = this.$refs.signupForm
+    const signinForm: any = this.$refs.signinForm
 
     this.form = clone(DEFAULT_FORM)
-    signupForm.resetFields()
+    signinForm.resetFields()
   }
 }
 </script>
