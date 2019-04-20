@@ -48,6 +48,18 @@ async function uploadFile(req, res) {
   } catch (err) {
     res.status(400).send('Error during uploading a file')
   }
+
+  const directory = './../uploads'
+
+  fs.readdir(directory, (err, files) => {
+    if (err) throw err
+
+    for (const file of files) {
+      fs.unlink(path.join(directory, file), err => {
+        if (err) throw err
+      })
+    }
+  })
 }
 
 module.exports = uploadFile

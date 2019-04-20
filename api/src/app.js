@@ -3,7 +3,6 @@ const app = express()
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const mongoose = require('mongoose')
-const multer = require('multer')
 
 const port = 3001
 
