@@ -1,6 +1,5 @@
 const { User } = require('./../../models')
 const { SCOPE } = require('./../../config/scope')
-const encryptPassword = require('./../../utils/encryptPassword')
 
 async function createUser(req, res) {
   const { body: newUser } = req
@@ -12,25 +11,30 @@ async function createUser(req, res) {
     return
   }
 
+  const tmpUser = await User.findOne({ email })
+
+  if (tmpUser) {
+    res.status(400).send('Email already registered')
+
+    return
+  }
+
   const scopes = [SCOPE.ADMIN]
 
-  const [salt, hash] = encryptPassword(password)
-
   const user = new User({
-    email,
     fullname,
+    email,
     scopes,
-    salt,
-    hash,
+    password,
   })
 
   try {
     await user.save()
-  } catch (err) {
-    res.send('Error during creating user: ', err)
-  }
 
-  res.send('User created')
+    res.send('success')
+  } catch (err) {
+    res.status(400).send('Error during user creation: ', err)
+  }
 }
 
 module.exports = createUser
