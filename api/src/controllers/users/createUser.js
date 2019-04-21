@@ -1,5 +1,5 @@
-const { User } = require('./../../models')
-const { SCOPE } = require('./../../config/scope')
+const { User } = require('../../models')
+const { SCOPE } = require('../../config/scope')
 
 async function createUser(req, res) {
   const { body: newUser } = req
