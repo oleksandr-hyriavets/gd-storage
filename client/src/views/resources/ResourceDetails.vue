@@ -6,8 +6,10 @@
     <p>
       {{ resource.description }}
     </p>
-    <div>
-      <h2>Resources</h2>
+    <div v-if="relatedResources && relatedResources.length">
+      <br />
+      <br />
+      <h2>Related resources</h2>
       <ResourcesList>
         <ResourcesListItem
           v-for="(resource, index) in relatedResources"

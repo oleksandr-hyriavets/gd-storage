@@ -16,6 +16,7 @@ const state: any = {
 const getters: GetterTree<any, any> = {
   resources: state => state.resources,
   resource: state => state.resource,
+  relatedResources: state => state.relatedResources,
 }
 
 const actions: ActionTree<any, any> = {

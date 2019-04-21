@@ -29,7 +29,7 @@
     </el-header>
     <el-container>
       <el-main>
-        <router-view />
+        <router-view :key="$route.path" />
       </el-main>
     </el-container>
   </div>
