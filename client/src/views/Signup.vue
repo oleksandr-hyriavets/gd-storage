@@ -22,6 +22,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import { Action } from 'vuex-class'
 import { clone } from 'ramda'
 
 const DEFAULT_FORM = {
@@ -51,12 +52,29 @@ export default class Home extends Vue {
     ],
   }
 
+  @Action('auth/register')
+  register!: (userData: any) => Promise<void>
+
   onSubmit() {
     const signupForm: any = this.$refs.signupForm
-    signupForm.validate((valid: boolean) => {
+    signupForm.validate(async (valid: boolean) => {
       if (!valid) return
 
-      console.log(this.form)
+      try {
+        await this.register(this.form)
+
+        this.$notify.success({
+          title: 'Success',
+          message: 'User registered successfully',
+        })
+
+        this.clearFields()
+      } catch (err) {
+        this.$notify.error({
+          title: 'Error',
+          message: 'Error during user registration. Try again latter',
+        })
+      }
     })
   }
 

@@ -10,7 +10,9 @@ const state: any = {
   user: null,
 }
 
-const getters: GetterTree<any, any> = {}
+const getters: GetterTree<any, any> = {
+  loggedIn: state => Boolean(state.user),
+}
 
 const actions: ActionTree<any, any> = {
   async register(ctx, userData: any) {

@@ -16,7 +16,10 @@
         </div>
         <span style="color: white;">Just GD Storage</span>
       </div>
-      <div>
+      <div v-if="loggedIn">
+        <el-button @click="logout">Logout</el-button>
+      </div>
+      <div v-else>
         <el-button @click="$router.push({ name: 'signin' })">Sign in</el-button>
         <el-button @click="$router.push({ name: 'signup' })">Sign up</el-button>
       </div>
@@ -29,9 +32,17 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'app',
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator'
+import { Getter, Action } from 'vuex-class'
+
+@Component
+export default class AppVue extends Vue {
+  @Action('auth/logout')
+  logout!: () => Promise<void>
+
+  @Getter('auth/loggedIn')
+  loggedIn!: boolean
 }
 </script>
 

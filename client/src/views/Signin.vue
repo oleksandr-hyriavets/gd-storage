@@ -6,7 +6,7 @@
           <el-input v-model="form.email"></el-input>
         </el-form-item>
         <el-form-item prop="password" label="Password">
-          <el-input v-model="form.password"></el-input>
+          <el-input v-model="form.password" type="password"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit">Sign in</el-button>
@@ -19,6 +19,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import { Action } from 'vuex-class'
 import { clone } from 'ramda'
 
 const DEFAULT_FORM = {
@@ -44,12 +45,29 @@ export default class Home extends Vue {
     ],
   }
 
+  @Action('auth/login')
+  login!: (credentials: any) => Promise<void>
+
   onSubmit() {
     const signinForm: any = this.$refs.signinForm
-    signinForm.validate((valid: boolean) => {
+    signinForm.validate(async (valid: boolean) => {
       if (!valid) return
 
-      console.log(this.form)
+      try {
+        await this.login(this.form)
+
+        this.$notify.success({
+          title: 'Success',
+          message: 'User logged in',
+        })
+
+        this.clearFields()
+      } catch (err) {
+        this.$notify.error({
+          title: 'Error',
+          message: 'Error during login. Please, try again later',
+        })
+      }
     })
   }
 
