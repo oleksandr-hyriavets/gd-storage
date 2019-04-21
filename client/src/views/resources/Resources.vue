@@ -27,7 +27,6 @@ import {
   ResourcesList,
   ResourcesListItem,
 } from '@/components/sections/resources'
-import resources from '../../store/resources'
 
 @Component({
   components: {

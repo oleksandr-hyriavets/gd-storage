@@ -3,6 +3,24 @@ const { getGdApi } = require('./../../utils/googleApi')
 const { Resource } = require('./../../models')
 
 const getResources = async (req, res) => {
+  const {
+    req: {
+      query: { id },
+    },
+  } = req
+
+  if (id) {
+    try {
+      const resource = await Resource.findById(id).populate('file owner')
+
+      res.send(resource)
+    } catch (err) {
+      res.status(400).send('Error during fetching resource by id')
+    }
+
+    return
+  }
+
   try {
     const resources = await Resource.find().populate('file owner')
 

@@ -6,6 +6,14 @@ const ResourcesService = {
 
     return response
   },
+
+  async fetchResourceById(id: string): Promise<any> {
+    const { data: response } = await axiosInstance.get('/resources', {
+      params: { id },
+    })
+
+    return response
+  },
 }
 
 export { ResourcesService }

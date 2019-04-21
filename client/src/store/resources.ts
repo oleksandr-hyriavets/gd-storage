@@ -7,10 +7,12 @@ const MUTATIONS = {
 
 const state: any = {
   resources: [],
+  resource: null,
 }
 
 const getters: GetterTree<any, any> = {
   resources: state => state.resources,
+  resource: state => state.resource,
 }
 
 const actions: ActionTree<any, any> = {
@@ -19,11 +21,20 @@ const actions: ActionTree<any, any> = {
 
     commit(MUTATIONS.SET_RESOURCES, resources)
   },
+
+  async fetchResourceById({ commit }, id: string) {
+    const resource = await ResourcesService.fetchResourceById(id)
+
+    commit(MUTATIONS.SET_RESOURCES, resource)
+  },
 }
 
 const mutations: MutationTree<any> = {
   [MUTATIONS.SET_RESOURCES](state, newResources) {
     state.resources = newResources
+  },
+  [MUTATIONS.SET_RESOURCES](state, newResource) {
+    state.resource = newResource
   },
 }
 
