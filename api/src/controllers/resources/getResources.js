@@ -4,9 +4,7 @@ const { Resource } = require('./../../models')
 
 const getResources = async (req, res) => {
   const {
-    req: {
-      query: { id },
-    },
+    query: { id },
   } = req
 
   if (id) {

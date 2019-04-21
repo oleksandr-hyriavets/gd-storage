@@ -3,11 +3,14 @@ import { ResourcesService } from '@/services/ApiServices'
 
 const MUTATIONS = {
   SET_RESOURCES: 'SET_RESOURCES',
+  SET_RESOURCE: 'SET_RESOURCE',
+  SET_RELATED_RESOURCES: 'SET_RELATED_RESOURCES',
 }
 
 const state: any = {
   resources: [],
   resource: null,
+  relatedResources: [],
 }
 
 const getters: GetterTree<any, any> = {
@@ -25,7 +28,13 @@ const actions: ActionTree<any, any> = {
   async fetchResourceById({ commit }, id: string) {
     const resource = await ResourcesService.fetchResourceById(id)
 
-    commit(MUTATIONS.SET_RESOURCES, resource)
+    commit(MUTATIONS.SET_RESOURCE, resource)
+  },
+
+  async fetchRelatedResources({ commit }, id: string) {
+    const relatedResources = await ResourcesService.fetchRelatedResources(id)
+
+    commit(MUTATIONS.SET_RELATED_RESOURCES, relatedResources)
   },
 }
 
@@ -33,8 +42,11 @@ const mutations: MutationTree<any> = {
   [MUTATIONS.SET_RESOURCES](state, newResources) {
     state.resources = newResources
   },
-  [MUTATIONS.SET_RESOURCES](state, newResource) {
+  [MUTATIONS.SET_RESOURCE](state, newResource) {
     state.resource = newResource
+  },
+  [MUTATIONS.SET_RELATED_RESOURCES](state, newRelatedResources) {
+    state.relatedResources = newRelatedResources
   },
 }
 

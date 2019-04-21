@@ -24,7 +24,7 @@ import { Vue, Component, Prop } from 'vue-property-decorator'
 
 @Component
 export default class ResourcesListItem extends Vue {
-  @Prop({ type: Array, required: true })
+  @Prop({ type: Object, required: true })
   resource!: any
 
   goToDetails() {
