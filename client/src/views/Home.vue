@@ -1,5 +1,9 @@
 <template>
-  <p>home</p>
+  <div class="home">
+    <el-button @click="$router.push({ name: 'resources' })"
+      >Go to resources</el-button
+    >
+  </div>
 </template>
 
 <script lang="ts">

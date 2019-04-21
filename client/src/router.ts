@@ -22,5 +22,15 @@ export default new Router({
       name: 'signin',
       component: () => import('@/views/Signin.vue'),
     },
+    {
+      path: '/resources',
+      name: 'resources',
+      component: () => import('@/views/resources/Resources.vue'),
+    },
+    {
+      path: '/resources/:id',
+      name: 'resources-id',
+      component: () => import('@/views/resources/ResourceDetails.vue'),
+    },
   ],
 })
