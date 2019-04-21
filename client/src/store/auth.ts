@@ -19,12 +19,12 @@ const actions: ActionTree<any, any> = {
     await AuthService.register(userData)
   },
 
-  async login(ctx, credentials: any) {
+  async login({ dispatch }, credentials: any) {
     const userId = await AuthService.login(credentials)
 
     TokenService.setUserId(userId)
 
-    // dispatch action on user fetch
+    await dispatch('fetchUser')
   },
 
   async logout(ctx) {

@@ -1,7 +1,7 @@
 const { User } = require('../../models')
 
 async function fetchProfile(req, res) {
-  const { body: userId } = req
+  const { query: data } = req
 
   if (!userId) {
     res.status(400).send('Please, provide userId')
@@ -10,7 +10,7 @@ async function fetchProfile(req, res) {
   }
 
   try {
-    const user = User.find({ _id: userId })
+    const user = await User.findById(data.userId)
 
     if (!user) {
       res.status(400).send('There no user with provided id')
@@ -18,6 +18,7 @@ async function fetchProfile(req, res) {
       res.send(user)
     }
   } catch (err) {
+    console.log(err)
     res.status(400).send('Error during fetching user profile')
   }
 }
