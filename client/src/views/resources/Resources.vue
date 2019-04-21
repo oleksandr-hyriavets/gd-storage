@@ -11,17 +11,23 @@
     <br />
     <br />
     <ResourcesList>
-      <ResourcesListItem />
+      <ResourcesListItem
+        v-for="(resource, index) in resourcesWithoutParent"
+        :key="index"
+        :resource="resource"
+      />
     </ResourcesList>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
+import { Action, Getter } from 'vuex-class'
 import {
   ResourcesList,
   ResourcesListItem,
 } from '@/components/sections/resources'
+import resources from '../../store/resources'
 
 @Component({
   components: {
@@ -29,5 +35,30 @@ import {
     ResourcesListItem,
   },
 })
-export default class ResourcesView extends Vue {}
+export default class ResourcesView extends Vue {
+  @Action('resources/fetchResources')
+  fetchResources!: () => Promise<void>
+
+  @Getter('resources/resources')
+  resources!: any[]
+
+  get resourcesWithoutParent() {
+    return this.resources.filter(resource => !Boolean(resource.parent))
+  }
+
+  async localFetchResources() {
+    try {
+      await this.fetchResources()
+    } catch (err) {
+      this.$notify.error({
+        title: 'Error',
+        message: 'Error during fetching resources',
+      })
+    }
+  }
+
+  created() {
+    this.localFetchResources()
+  }
+}
 </script>
