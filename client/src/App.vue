@@ -17,6 +17,9 @@
         <span style="color: white;">Just GD Storage</span>
       </div>
       <div v-if="loggedIn">
+        <span style="color: white; margin-right: 20px;"
+          >Hi, {{ fullname }}</span
+        >
         <el-button @click="logout">Logout</el-button>
       </div>
       <div v-else>
@@ -35,14 +38,36 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import { Getter, Action } from 'vuex-class'
+import { TokenService } from './services'
 
 @Component
 export default class AppVue extends Vue {
   @Action('auth/logout')
   logout!: () => Promise<void>
 
+  @Action('auth/fetchUser')
+  fetchUser!: () => Promise<void>
+
   @Getter('auth/loggedIn')
   loggedIn!: boolean
+
+  @Getter('auth/fullname')
+  fullname!: string
+
+  async created() {
+    const userId = TokenService.getUserId()
+
+    if (!userId) return
+
+    try {
+      await this.fetchUser()
+    } catch (err) {
+      this.$notify.error({
+        title: 'Error',
+        message: 'Error during fetching user profile',
+      })
+    }
+  }
 }
 </script>
 

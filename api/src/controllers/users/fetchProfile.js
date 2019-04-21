@@ -3,7 +3,7 @@ const { User } = require('../../models')
 async function fetchProfile(req, res) {
   const { query: data } = req
 
-  if (!userId) {
+  if (!data.userId) {
     res.status(400).send('Please, provide userId')
 
     return

@@ -4,6 +4,7 @@ import { TokenService } from '@/services'
 
 const MUTATIONS = {
   FETCH_USER: 'FETCH_USER',
+  CLEAR_USER: 'CLEAR_USER',
 }
 
 const state: any = {
@@ -12,6 +13,7 @@ const state: any = {
 
 const getters: GetterTree<any, any> = {
   loggedIn: state => Boolean(state.user),
+  fullname: state => state.user.fullname,
 }
 
 const actions: ActionTree<any, any> = {
@@ -24,11 +26,17 @@ const actions: ActionTree<any, any> = {
 
     TokenService.setUserId(userId)
 
-    await dispatch('fetchUser')
+    try {
+      await dispatch('fetchUser')
+    } catch (err) {
+      console.error(err)
+    }
   },
 
-  async logout(ctx) {
+  async logout({ commit }) {
     TokenService.removeUserId()
+
+    commit(MUTATIONS.CLEAR_USER)
   },
 
   async fetchUser({ commit }) {
@@ -47,6 +55,10 @@ const actions: ActionTree<any, any> = {
 const mutations: MutationTree<any> = {
   [MUTATIONS.FETCH_USER](state, newUser) {
     state.user = newUser
+  },
+
+  [MUTATIONS.CLEAR_USER](state) {
+    state.user = null
   },
 }
 
