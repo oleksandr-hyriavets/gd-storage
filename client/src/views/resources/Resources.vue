@@ -26,7 +26,7 @@ import { Action, Getter } from 'vuex-class'
 import {
   ResourcesList,
   ResourcesListItem,
-} from '@/components/sections/resources'
+} from '@/components/sections/resources/ResourcesList'
 
 @Component({
   components: {

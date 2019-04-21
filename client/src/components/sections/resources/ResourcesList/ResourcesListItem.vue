@@ -14,6 +14,8 @@
       <p>Owner: {{ resource.owner.fullname }}</p>
       <div>
         <el-button type="primary" @click="goToDetails">Details</el-button>
+        <el-button @click="goToEditPage">Edit</el-button>
+        <el-button type="danger">Remove</el-button>
       </div>
     </el-card>
   </el-col>
@@ -30,6 +32,13 @@ export default class ResourcesListItem extends Vue {
   goToDetails() {
     this.$router.push({
       name: 'resources-id',
+      params: { id: this.resource._id },
+    })
+  }
+
+  goToEditPage() {
+    this.$router.push({
+      name: 'resources-id-edit',
       params: { id: this.resource._id },
     })
   }

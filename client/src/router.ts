@@ -32,5 +32,10 @@ export default new Router({
       name: 'resources-id',
       component: () => import('@/views/resources/ResourceDetails.vue'),
     },
+    {
+      path: '/resources/:id/edit',
+      name: 'resources-id-edit',
+      component: () => import('@/views/resources/EditResource.vue'),
+    },
   ],
 })
