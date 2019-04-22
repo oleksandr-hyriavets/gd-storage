@@ -22,6 +22,10 @@ const ResourcesService = {
 
     return response
   },
+
+  async editResource(newResource: any) {
+    await axiosInstance.put('/resources/edit', newResource)
+  },
 }
 
 export { ResourcesService }

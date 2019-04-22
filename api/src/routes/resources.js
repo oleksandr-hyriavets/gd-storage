@@ -22,5 +22,10 @@ router.post(
   upload.single('file'),
   require('./../controllers/resources/createResource'),
 )
+router.put(
+  '/edit',
+  upload.single('file'),
+  require('./../controllers/resources/editResource'),
+)
 
 module.exports = router

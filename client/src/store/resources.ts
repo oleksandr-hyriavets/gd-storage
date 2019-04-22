@@ -1,5 +1,5 @@
 import { MutationTree, ActionTree, GetterTree } from 'vuex'
-import { ResourcesService } from '@/services/ApiServices'
+import { ResourcesService, FilesService } from '@/services/ApiServices'
 
 const MUTATIONS = {
   SET_RESOURCES: 'SET_RESOURCES',
@@ -24,6 +24,8 @@ const actions: ActionTree<any, any> = {
     const resources = await ResourcesService.fetchResources()
 
     commit(MUTATIONS.SET_RESOURCES, resources)
+
+    return resources
   },
 
   async fetchResourceById({ commit }, id: string) {
@@ -37,6 +39,16 @@ const actions: ActionTree<any, any> = {
 
     commit(MUTATIONS.SET_RELATED_RESOURCES, relatedResources)
   },
+
+  async uploadFile(ctx, file: any) {
+    const fileId = await FilesService.uploadFile(file)
+
+    return fileId
+  },
+
+  async editResource(ctx, newResource: any) {
+    await ResourcesService.editResource(newResource)
+  }
 }
 
 const mutations: MutationTree<any> = {
