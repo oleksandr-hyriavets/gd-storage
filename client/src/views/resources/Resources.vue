@@ -1,6 +1,16 @@
 <template>
   <div>
-    <h1>Resources</h1>
+    <div
+      style="display: flex; align-items: center; justify-content: space-between;"
+    >
+      <h1>Resources</h1>
+      <el-button
+        type="success"
+        round
+        @click="$router.push({ name: 'resources-create' })"
+        >Create resource</el-button
+      >
+    </div>
     <div style="width: 100%">
       <el-input
         type="text"

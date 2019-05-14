@@ -48,7 +48,11 @@ const actions: ActionTree<any, any> = {
 
   async editResource(ctx, newResource: any) {
     await ResourcesService.editResource(newResource)
-  }
+  },
+
+  async createResource(ctx, newResource: any) {
+    await ResourcesService.createResource(newResource)
+  },
 }
 
 const mutations: MutationTree<any> = {

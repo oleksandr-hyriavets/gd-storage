@@ -14,6 +14,7 @@ const state: any = {
 const getters: GetterTree<any, any> = {
   loggedIn: state => Boolean(state.user),
   fullname: state => state.user.fullname,
+  userId: state => state.user._id,
 }
 
 const actions: ActionTree<any, any> = {

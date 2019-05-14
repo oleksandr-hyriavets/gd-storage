@@ -28,6 +28,11 @@ export default new Router({
       component: () => import('@/views/resources/Resources.vue'),
     },
     {
+      path: '/resources/create',
+      name: 'resources-create',
+      component: () => import('@/views/resources/CreateResource.vue'),
+    },
+    {
       path: '/resources/:id',
       name: 'resources-id',
       component: () => import('@/views/resources/ResourceDetails.vue'),
