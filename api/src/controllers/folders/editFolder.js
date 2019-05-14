@@ -2,7 +2,7 @@ const { Folder } = require('./../../models')
 
 const hasPermissions = permissions => permissions && Boolean(permissions.length)
 
-async function createFolder(req, res) {
+async function editFolder(req, res) {
   const { body: newFolder } = req
 
   if (
@@ -17,15 +17,13 @@ async function createFolder(req, res) {
     return
   }
 
-  const folder = new Folder(newFolder)
-
   try {
-    await folder.save()
+    await Folder.updateOne({ _id: newFolder._id }, newFolder)
 
-    res.send('Folder created successfully')
+    res.send('Folder edited successfully')
   } catch (err) {
-    res.status(400).send('Error during creating folder')
+    res.status(400).send('Error during editing folder')
   }
 }
 
-module.exports = createFolder
+module.exports = editFolder
