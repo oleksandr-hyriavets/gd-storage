@@ -1,18 +1,17 @@
 const { Schema, model } = require('mongoose')
 
-const resourceSchema = Schema({
+const folderSchema = Schema({
   name: { type: String, required: true },
   owner: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   description: String,
   readPermissions: { type: [String], required: true },
   editPermissions: { type: [String], required: true },
   deletePermissions: { type: [String], required: true },
-  file: { type: Schema.Types.ObjectId, ref: 'File', required: true },
-  folder: { type: Schema.Types.ObjectId, ref: 'Folder' },
+  parent: { type: Schema.Types.ObjectId, ref: 'Folder' },
 })
 
-resourceSchema.set('timestamps', true)
+folderSchema.set('timestamps', true)
 
-const Resource = model('Resource', resourceSchema)
+const Folder = model('Folder', folderSchema)
 
-module.exports = Resource
+module.exports = Folder

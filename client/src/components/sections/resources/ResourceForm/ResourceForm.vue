@@ -62,6 +62,9 @@ export default class ResourceForm extends Vue {
   @Action('resources/fetchResources')
   fetchResources!: () => Promise<any>
 
+  @Action('resources/editResource')
+  editResource!: (newResource: any) => Promise<void>
+
   async localUploadFile() {
     this.uploading = true
 
@@ -109,11 +112,18 @@ export default class ResourceForm extends Vue {
 
   async onAccept() {
     const payload = {
+      _id: this.$route.params.id,
       ...this.form,
     }
 
     try {
-      console.log('end form with payload', payload)
+      await this.localUploadFile()
+      await this.editResource(payload)
+
+      this.$notify.success({
+        title: 'Success',
+        message: 'Resource edited',
+      })
     } catch (err) {
       this.$notify.error({
         title: 'Error',
