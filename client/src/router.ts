@@ -42,5 +42,10 @@ export default new Router({
       name: 'resources-id-edit',
       component: () => import('@/views/resources/EditResource.vue'),
     },
+    {
+      path: '/create-folder',
+      name: 'create-folder',
+      component: () => import('@/views/CreateFolder.vue'),
+    },
   ],
 })

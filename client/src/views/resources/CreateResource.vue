@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import { ResourceForm } from '@/components/sections/resources/newResourceForm'
+import { ResourceForm } from '@/components/sections/resources/ResourceForm'
 
 const DEFAULT_FORM = {
   name: '',

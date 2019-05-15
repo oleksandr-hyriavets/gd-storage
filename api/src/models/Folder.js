@@ -3,7 +3,6 @@ const { Schema, model } = require('mongoose')
 const folderSchema = Schema({
   name: { type: String, required: true },
   owner: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-  description: String,
   readPermissions: { type: [String], required: true },
   editPermissions: { type: [String], required: true },
   deletePermissions: { type: [String], required: true },

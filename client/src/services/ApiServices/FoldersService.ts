@@ -6,6 +6,14 @@ const FoldersService = {
 
     return response
   },
+
+  async editFolder(payload: any): Promise<any> {
+    await axiosInstance.put('/folders', payload)
+  },
+
+  async createFolder(payload: any): Promise<any> {
+    await axiosInstance.post('/folders', payload)
+  },
 }
 
 export { FoldersService }
