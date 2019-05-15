@@ -28,7 +28,7 @@ export default class FolderListItem extends Vue {
   folder!: any
 
   goToDetails() {
-    console.log('nu go')
+    this.$router.push({ name: 'folder-id', params: { id: this.folder._id } })
   }
 
   goToEditPage() {

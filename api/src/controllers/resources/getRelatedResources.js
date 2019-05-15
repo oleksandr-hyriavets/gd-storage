@@ -12,7 +12,7 @@ async function getRelatedResources(req, res) {
   }
 
   try {
-    const relatedResources = await Resource.find({ parent: id }).populate(
+    const relatedResources = await Resource.find({ folder: id }).populate(
       'file owner',
     )
 

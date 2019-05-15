@@ -47,5 +47,10 @@ export default new Router({
       name: 'create-folder',
       component: () => import('@/views/CreateFolder.vue'),
     },
+    {
+      path: '/folder/:id',
+      name: 'folder-id',
+      component: () => import('@/views/folders/FolderOpened.vue'),
+    },
   ],
 })

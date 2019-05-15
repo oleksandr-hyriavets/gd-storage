@@ -7,6 +7,22 @@ const FoldersService = {
     return response
   },
 
+  async getChildFolders(id: string): Promise<any> {
+    const { data: response } = await axiosInstance.get('/folders', {
+      params: { id },
+    })
+
+    return response
+  },
+
+  async getFolderById(id: string): Promise<any> {
+    const { data: response } = await axiosInstance.get('/folders/folder', {
+      params: { id },
+    })
+
+    return response
+  },
+
   async editFolder(payload: any): Promise<any> {
     await axiosInstance.put('/folders', payload)
   },
