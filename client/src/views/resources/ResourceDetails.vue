@@ -1,34 +1,29 @@
 <template>
   <div v-if="resource">
-    <el-button @click="$router.back()">Back</el-button>
-    <el-button>
-      <a
-        style="color: inherit; text-decoration: none; text-transform: inherit;"
-        :href="
-          `http://localhost:3001/files/download?id=${resource.file.gdFileId}`
-        "
-        download
-        >Download</a
-      ></el-button
-    >
-
-    <h1>{{ resource.name }}</h1>
-    <span>Owner: {{ resource.owner.fullname }}</span>
-    <p>
-      {{ resource.description }}
-    </p>
-    <div v-if="relatedResources && relatedResources.length">
-      <br />
-      <br />
-      <h2>Related resources</h2>
-      <ResourcesList>
-        <ResourcesListItem
-          v-for="(resource, index) in relatedResources"
-          :key="index"
-          :resource="resource"
-        />
-      </ResourcesList>
+    <div style="display: flex; align-items: center;">
+      <el-button round @click="$router.back()"
+        ><i class="el-icon-back"
+      /></el-button>
+      <h1 style="margin: 0 auto;">{{ resource.name }}</h1>
+      <el-button type="success">
+        <a
+          style="color: inherit; text-decoration: none; text-transform: inherit;"
+          :href="
+            `http://localhost:3001/files/download?id=${resource.file.gdFileId}`
+          "
+          download
+          >Download</a
+        ></el-button
+      >
     </div>
+    <hr />
+
+    <el-card>
+      <p><b>Owner:</b> {{ resource.owner.fullname }}</p>
+      <p><b>File name:</b> {{ resource.file.filename }}</p>
+      <p><b>Created At:</b> {{ resource.createdAt.slice(0, 10) }}</p>
+      <p><b>Description:</b> {{ resource.description }}</p>
+    </el-card>
   </div>
 </template>
 
@@ -51,14 +46,8 @@ export default class ResourceDetailsView extends Vue {
   @Action('resources/fetchResourceById')
   fetchResourceById!: (id: string) => Promise<void>
 
-  @Action('resources/fetchRelatedResources')
-  fetchRelatedResources!: (id: string) => Promise<void>
-
   @Getter('resources/resource')
   resource!: any
-
-  @Getter('resources/relatedResources')
-  relatedResources!: any
 
   async localFetchResourcesById(id: string) {
     try {
@@ -67,17 +56,6 @@ export default class ResourceDetailsView extends Vue {
       this.$notify.error({
         title: 'Error',
         message: 'Error during fetching resources',
-      })
-    }
-  }
-
-  async localFetchRelatedResources(id: string) {
-    try {
-      await this.fetchRelatedResources(id)
-    } catch (err) {
-      this.$notify.error({
-        title: 'Error',
-        message: 'Error during fetching related resources',
       })
     }
   }
@@ -105,7 +83,6 @@ export default class ResourceDetailsView extends Vue {
     }
 
     this.localFetchResourcesById(id)
-    this.localFetchRelatedResources(id)
   }
 }
 </script>

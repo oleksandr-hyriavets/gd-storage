@@ -4,7 +4,7 @@
       <el-button round @click="$router.back()"
         ><i class="el-icon-back"
       /></el-button>
-      <h1 style="margin: 0 auto;">Current folder: {{ currentFolder.name }}</h1>
+      <h1 style="margin: 0 auto;">{{ currentFolder.name }}</h1>
     </div>
     <hr />
     <div v-if="childFolders.length">

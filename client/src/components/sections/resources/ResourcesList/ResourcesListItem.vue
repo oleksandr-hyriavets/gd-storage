@@ -12,7 +12,7 @@
       </p>
       <p>File: {{ resource.file.filename }}</p>
       <p>Owner: {{ resource.owner.fullname }}</p>
-      <div>
+      <div v-if="isOwner">
         <el-button type="primary" @click="goToDetails">Details</el-button>
         <el-button @click="goToEditPage">Edit</el-button>
         <el-button type="danger">Remove</el-button>
@@ -23,11 +23,19 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
+import { Getter } from 'vuex-class'
 
 @Component
 export default class ResourcesListItem extends Vue {
   @Prop({ type: Object, required: true })
   resource!: any
+
+  @Getter('auth/userId')
+  userId!: string
+
+  get isOwner() {
+    return this.userId === this.resource.owner._id
+  }
 
   goToDetails() {
     this.$router.push({

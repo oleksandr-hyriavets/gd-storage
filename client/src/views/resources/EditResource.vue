@@ -1,7 +1,18 @@
 <template>
-  <el-card style="width: 400px;  margin: 0 auto; margin-top: 100px;">
-    <ResourceForm v-if="resourceToEdit" :resource="resourceToEdit" />
-  </el-card>
+  <div>
+    <div style="display: flex; align-items: center;">
+      <el-button round @click="$router.back()"
+        ><i class="el-icon-back"
+      /></el-button>
+      <h1 style="margin: 0 auto;">
+        Edit Resource
+      </h1>
+    </div>
+    <hr />
+    <el-card style="width: 400px;  margin: 0 auto; margin-top: 20px;">
+      <ResourceForm v-if="resourceToEdit" :resource="resourceToEdit" />
+    </el-card>
+  </div>
 </template>
 
 <script lang="ts">

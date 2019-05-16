@@ -28,8 +28,8 @@
       </el-select>
     </el-form-item>
     <div>
-      <el-button @click="onAccept">Accept</el-button>
-      <el-button>Reset</el-button>
+      <el-button type="success" @click="onAccept">Accept</el-button>
+      <el-button @click="resetForm">Reset</el-button>
     </div>
   </el-form>
 </template>
