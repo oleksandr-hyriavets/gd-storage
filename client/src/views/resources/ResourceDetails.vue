@@ -1,6 +1,17 @@
 <template>
   <div v-if="resource">
     <el-button @click="$router.back()">Back</el-button>
+    <el-button>
+      <a
+        style="color: inherit; text-decoration: none; text-transform: inherit;"
+        :href="
+          `http://localhost:3001/files/download?id=${resource.file.gdFileId}`
+        "
+        download
+        >Download</a
+      ></el-button
+    >
+
     <h1>{{ resource.name }}</h1>
     <span>Owner: {{ resource.owner.fullname }}</span>
     <p>
@@ -28,6 +39,7 @@ import {
   ResourcesList,
   ResourcesListItem,
 } from '@/components/sections/resources/ResourcesList'
+import { FilesService } from '@/services/ApiServices'
 
 @Component({
   components: {
@@ -67,6 +79,18 @@ export default class ResourceDetailsView extends Vue {
         title: 'Error',
         message: 'Error during fetching related resources',
       })
+    }
+  }
+
+  async downloadResource() {
+    const { file } = this.resource
+
+    try {
+      const linkShouldItBe = await FilesService.downloadFile(file.gdFileId)
+
+      console.log(linkShouldItBe)
+    } catch (err) {
+      console.error(err)
     }
   }
 

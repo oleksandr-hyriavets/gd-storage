@@ -6,6 +6,14 @@ const FilesService = {
 
     return response
   },
+
+  async downloadFile(fileId: string): Promise<any> {
+    const { data: response } = await axiosInstance.get('/files/download', {
+      params: { id: fileId },
+    })
+
+    return response
+  },
 }
 
 export { FilesService }
