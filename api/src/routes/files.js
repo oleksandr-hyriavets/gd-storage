@@ -18,4 +18,6 @@ router.post(
   require('./../controllers/files/uploadFile'),
 )
 
+router.get('/download', require('./../controllers/files/downloadFile'))
+
 module.exports = router
