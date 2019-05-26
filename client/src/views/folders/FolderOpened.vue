@@ -24,6 +24,7 @@
           v-for="(resource, index) in folderResources"
           :key="index"
           :resource="resource"
+          @refetch-resources="fetchFolderResources(this.$route.params.id)"
         />
       </ResourcesList>
     </div>

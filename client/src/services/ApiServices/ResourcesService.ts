@@ -30,6 +30,10 @@ const ResourcesService = {
   async createResource(newResource: any) {
     await axiosInstance.post('/resources/create', newResource)
   },
+
+  async removeResource(id: string) {
+    await axiosInstance.post('/resources/remove', { id })
+  },
 }
 
 export { ResourcesService }

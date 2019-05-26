@@ -10,7 +10,7 @@ async function removeFolder(req, res) {
   }
 
   try {
-    await Folder.deleteOne({ _id: id })
+    await Folder.findByIdAndDelete(id)
 
     res.send('Folder deleted successfully!')
   } catch (err) {

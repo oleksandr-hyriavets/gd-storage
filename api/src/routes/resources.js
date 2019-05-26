@@ -27,5 +27,6 @@ router.put(
   upload.single('file'),
   require('./../controllers/resources/editResource'),
 )
+router.post('/remove', require('./../controllers/resources/removeResource'))
 
 module.exports = router

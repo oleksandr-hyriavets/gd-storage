@@ -12,6 +12,7 @@
         >Create folder</el-button
       >
     </div>
+    <FolderTreeView />
     <FolderList>
       <FolderListItem
         v-for="(folder, index) in rootFolders"
@@ -38,13 +39,12 @@
         style="width: 550px; display: block; margin: 0 auto;"
       />
     </div> -->
-    <br />
-    <br />
     <ResourcesList>
       <ResourcesListItem
         v-for="(resource, index) in rootResources"
         :key="index"
         :resource="resource"
+        @refetch-resources="fetchRootResources"
       />
     </ResourcesList>
   </div>
@@ -61,6 +61,7 @@ import {
   FolderList,
   FolderListItem,
 } from '@/components/sections/folders/FolderList'
+import { FolderTreeView } from '@/components/sections/folders/FolderTreeView'
 
 import { FoldersService, ResourcesService } from '@/services/ApiServices'
 
@@ -70,6 +71,7 @@ import { FoldersService, ResourcesService } from '@/services/ApiServices'
     ResourcesListItem,
     FolderList,
     FolderListItem,
+    FolderTreeView,
   },
 })
 export default class ResourcesView extends Vue {
