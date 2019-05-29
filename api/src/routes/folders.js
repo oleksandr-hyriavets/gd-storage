@@ -7,6 +7,6 @@ router.get('/tree', require('./../controllers/folders/getTree'))
 
 router.post('/', require('./../controllers/folders/createFolder'))
 router.put('/', require('./../controllers/folders/editFolder'))
-router.delete('/', require('./../controllers/folders/removeFolder'))
+router.post('/remove', require('./../controllers/folders/removeFolder'))
 
 module.exports = router

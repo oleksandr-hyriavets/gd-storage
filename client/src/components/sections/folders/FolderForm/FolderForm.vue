@@ -95,6 +95,7 @@ export default class FolderForm extends Vue {
 
       const payload = {
         ...this.form,
+        _id: this.$route.params.id,
         parent: this.form.parent !== -1 ? this.form.parent : undefined,
         owner: this.userId,
         editPermissions: ['Admin'],

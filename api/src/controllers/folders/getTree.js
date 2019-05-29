@@ -10,13 +10,13 @@ function buildHierarchy(arry) {
       p = item.parent,
       target = !p ? roots : children[p] || (children[p] = [])
 
-    target.push({ value: item })
+    target.push({ ...item })
   }
 
   // function to recursively build the tree
   var findChildren = function(parent) {
-    if (children[parent.value._id]) {
-      parent.children = children[parent.value._id]
+    if (children[parent._id]) {
+      parent.children = children[parent._id]
       for (var i = 0, len = parent.children.length; i < len; ++i) {
         findChildren(parent.children[i])
       }
@@ -35,7 +35,15 @@ async function getTree(req, res) {
   try {
     const folders = await Folder.find().select('_id name parent')
 
-    res.send(buildHierarchy(folders))
+    console.log('FOLDERS', folders)
+
+    const hierarchicalFolders = buildHierarchy(
+      JSON.parse(JSON.stringify(folders)),
+    )
+
+    console.log('hierarchicalFolders', hierarchicalFolders)
+
+    res.send(hierarchicalFolders)
   } catch (err) {
     res.status(400).send('Erorr during getting folders tree')
   }

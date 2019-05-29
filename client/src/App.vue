@@ -28,6 +28,21 @@
       </div>
     </el-header>
     <el-container>
+      <el-aside v-if="isNotSignInOrSignOutPage" width="200px">
+        <div
+          style="display: flex; align-items: center; justify-content: space-between;"
+        >
+          <h1>&nbsp; Folders Tree:</h1>
+          <el-button
+            size="mini"
+            type="primary"
+            circle
+            icon="el-icon-refresh"
+            @click="refreshFolderTreeHandler"
+          />
+        </div>
+        <FolderTreeView ref="folderTreeViewRef" />
+      </el-aside>
       <el-main>
         <router-view :key="$route.path" />
       </el-main>
@@ -39,8 +54,13 @@
 import { Vue, Component } from 'vue-property-decorator'
 import { Getter, Action } from 'vuex-class'
 import { TokenService } from './services'
+import { FolderTreeView } from '@/components/sections/folders/FolderTreeView'
 
-@Component
+@Component({
+  components: {
+    FolderTreeView,
+  },
+})
 export default class AppVue extends Vue {
   @Action('auth/logout')
   logout!: () => Promise<void>
@@ -53,6 +73,18 @@ export default class AppVue extends Vue {
 
   @Getter('auth/fullname')
   fullname!: string
+
+  get isNotSignInOrSignOutPage() {
+    const routeNamesOfPagesWithoutFolderTree = ['signin', 'signup']
+    const currentRouteName = this.$route.name || ''
+
+    return !routeNamesOfPagesWithoutFolderTree.includes(currentRouteName)
+  }
+
+  refreshFolderTreeHandler() {
+    const r: any = this.$refs.folderTreeViewRef
+    r.fetchFolderTree()
+  }
 
   async created() {
     const userId = TokenService.getUserId()

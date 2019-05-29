@@ -10,17 +10,27 @@
       <p style="font-size: 14px;">
         {{ folder.description }}
       </p>
-      <!-- <div>
-        <el-button type="primary" @click="goToDetails">Details</el-button>
-        <el-button @click="goToEditPage">Edit</el-button>
-        <el-button type="danger">Remove</el-button>
-      </div> -->
+      <div>
+        <el-button
+          type="primary"
+          icon="el-icon-edit"
+          circle
+          @click="goToEditPage"
+        />
+        <el-button
+          type="danger"
+          icon="el-icon-delete"
+          circle
+          @click="deleteFolder"
+        />
+      </div>
     </el-card>
   </el-col>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
+import { FoldersService } from '@/services/ApiServices'
 
 @Component
 export default class FolderListItem extends Vue {
@@ -32,7 +42,26 @@ export default class FolderListItem extends Vue {
   }
 
   goToEditPage() {
-    console.log('nu go')
+    this.$router.push({
+      name: 'folder-id-edit',
+      params: { id: this.folder._id },
+    })
+  }
+
+  async deleteFolder() {
+    try {
+      await FoldersService.removeFolder(this.folder._id)
+
+      this.$notify.success({
+        title: 'Success',
+        message: 'Folder removed',
+      })
+    } catch (err) {
+      this.$notify.error({
+        title: 'Error',
+        message: 'Error during removing folder',
+      })
+    }
   }
 }
 </script>

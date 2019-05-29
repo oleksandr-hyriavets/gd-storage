@@ -1,74 +1,59 @@
 <template>
   <div>
-    <el-tree :data="data" @node-click="handleNodeClick"></el-tree>
+    <el-tree
+      ref="treeRef"
+      :data="folderTree"
+      :props="defaultProps"
+      node-key="_id"
+      highlight-current
+      default-expand-all
+      @node-click="handleNodeClick"
+    ></el-tree>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
+import { FoldersService } from '@/services/ApiServices'
 
-@Component
+@Component({
+  watch: {
+    $route(newValue: any) {
+      const ref: any = this.$refs.treeRef
+
+      ref.setCurrentKey(newValue.params.id)
+    },
+  },
+})
 export default class FolderTreeView extends Vue {
-  data = [
-    {
-      label: 'Level one 1',
-      children: [
-        {
-          label: 'Level two 1-1',
-          children: [
-            {
-              label: 'Level three 1-1-1',
-            },
-          ],
-        },
-      ],
-    },
-    {
-      label: 'Level one 2',
-      children: [
-        {
-          label: 'Level two 2-1',
-          children: [
-            {
-              label: 'Level three 2-1-1',
-            },
-          ],
-        },
-        {
-          label: 'Level two 2-2',
-          children: [
-            {
-              label: 'Level three 2-2-1',
-            },
-          ],
-        },
-      ],
-    },
-    {
-      label: 'Level one 3',
-      children: [
-        {
-          label: 'Level two 3-1',
-          children: [
-            {
-              label: 'Level three 3-1-1',
-            },
-          ],
-        },
-        {
-          label: 'Level two 3-2',
-          children: [
-            {
-              label: 'Level three 3-2-1',
-            },
-          ],
-        },
-      ],
-    },
-  ]
+  folderTree: any = []
+
+  defaultProps = {
+    children: 'children',
+    label: 'name',
+  }
 
   handleNodeClick(event: any) {
-    console.log('event', event)
+    console.log(event)
+    this.$router.push({
+      name: 'folder-id',
+      params: { id: event._id },
+    })
+  }
+
+  async fetchFolderTree() {
+    try {
+      this.folderTree = await FoldersService.getFolderTree()
+    } catch (err) {
+      this.$notify.error({
+        title: 'Error',
+        message: 'Error during fetching folder tree',
+      })
+    }
+  }
+
+  created() {
+    this.fetchFolderTree()
   }
 }
 </script>

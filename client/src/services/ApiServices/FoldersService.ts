@@ -30,6 +30,16 @@ const FoldersService = {
   async createFolder(payload: any): Promise<any> {
     await axiosInstance.post('/folders', payload)
   },
+
+  async removeFolder(folderId: string): Promise<any> {
+    await axiosInstance.post('/folders/remove', folderId)
+  },
+
+  async getFolderTree(): Promise<any> {
+    const { data: response } = await axiosInstance.get('/folders/tree')
+
+    return response
+  },
 }
 
 export { FoldersService }

@@ -12,10 +12,34 @@
       </p>
       <p>File: {{ resource.file.filename }}</p>
       <p>Owner: {{ resource.owner.fullname }}</p>
-      <div v-if="isOwner">
-        <el-button type="primary" @click="goToDetails">Details</el-button>
-        <el-button @click="goToEditPage">Edit</el-button>
-        <el-button @click="removeResource" type="danger">Remove</el-button>
+      <div
+        v-if="isOwner"
+        style="display: flex; justify-content: center; align-items: center;"
+      >
+        <el-button
+          type="primary"
+          icon="el-icon-edit"
+          circle
+          @click="goToEditPage"
+        />
+        <el-button
+          type="danger"
+          icon="el-icon-delete"
+          circle
+          @click="removeResource"
+        />
+        <el-button type="success" round>
+          <a
+            style="color: inherit; text-decoration: none; text-transform: inherit;"
+            :href="
+              `http://localhost:3001/files/download?id=${
+                resource.file.gdFileId
+              }`
+            "
+            download
+            >download</a
+          >
+        </el-button>
       </div>
     </el-card>
   </el-col>

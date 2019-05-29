@@ -52,5 +52,10 @@ export default new Router({
       name: 'folder-id',
       component: () => import('@/views/folders/FolderOpened.vue'),
     },
+    {
+      path: '/folder/:id/edit',
+      name: 'folder-id-edit',
+      component: () => import('@/views/folders/EditFolder.vue'),
+    },
   ],
 })
